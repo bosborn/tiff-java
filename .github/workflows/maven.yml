@@ -15,13 +15,13 @@ jobs:
         java-version: 1.8
     - shell: bash
       run: |
-        echo "::set-env name=VERSION::mvn help:evaluate -Dexpression=project.version -q -DforceStdout"
+        echo "::set-env name=TEMP::mvn help:evaluate -Dexpression=project.version -q -DforceStdout"
+        echo $TEMP
+        mvn help:evaluate -Dexpression=project.version -q -DforceStdout > VERSION
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Upload JAR
       uses: actions/upload-artifact@v1
       with:
-        name: jar
-        path: target/tiff-2.0.2.jar
-      env:
-        VERSION: mvn help:evaluate -Dexpression=project.version -q -DforceStdout
+        name: tiff-${VERSION}.jar
+        path: target/tiff-${VERSION}.jar
