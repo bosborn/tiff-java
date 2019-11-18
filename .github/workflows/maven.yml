@@ -13,15 +13,12 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - shell: bash
-      run: |
-        echo "::set-env name=TEMP::mvn help:evaluate -Dexpression=project.version -q -DforceStdout"
-        echo $TEMP
-        mvn help:evaluate -Dexpression=project.version -q -DforceStdout > VERSION
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - run: mkdir target/release
+    - run: cp pom.xml target/*.jar target/release/
     - name: Upload JAR
       uses: actions/upload-artifact@v1
       with:
-        name: tiff-${VERSION}.jar
-        path: target/tiff-${VERSION}.jar
+        name: tiff-java
+        path: target/release
