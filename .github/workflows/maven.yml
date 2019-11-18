@@ -15,16 +15,16 @@ jobs:
         java-version: 1.8
     - shell: bash
       run: |
-        version=`mvn help:evaluate -Dexpression=project.version -q -DforceStdout`
+        echo "::set-env name=VERSION::mvn help:evaluate -Dexpression=project.version -q -DforceStdout"
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Upload JAR
       uses: actions/upload-artifact@v1
       with:
         name: jar
-        path: target/tiff-$version.jar
+        path: target/tiff-${VERSION}.jar
     - name: Upload Javadoc
       uses: actions/upload-artifact@v1
       with:
         name: javadoc
-        path: target/tiff-$version-javadoc.jar
+        path: target/tiff-${VERSION}-javadoc.jar
