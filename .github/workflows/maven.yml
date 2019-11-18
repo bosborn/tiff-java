@@ -15,3 +15,13 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: Upload JAR
+      uses: actions/upload-artifact@v1
+      with:
+        name: jar
+        path: target/tiff-${project.version}.jar
+    - name: Upload Javadoc
+      uses: actions/upload-artifact@v1
+      with:
+        name: javadoc
+        path: target/tiff-${project.version}-javadoc.jar
