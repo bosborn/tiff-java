@@ -22,6 +22,6 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: jar
-        path: target/tiff-${VERSION}.jar
+        path: target/tiff-2.0.2.jar
       env:
         VERSION: mvn help:evaluate -Dexpression=project.version -q -DforceStdout
